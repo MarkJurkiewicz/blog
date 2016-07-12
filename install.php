@@ -62,5 +62,35 @@ if (!$error)
 ?>
 <!DOCTYPE html>
 <html>
-    <head>Blog Installer</head>
+    <head>
+        <title>Blog Installer</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <style type="text/css">
+            .box {
+                border: 1px dotted silver;
+                border-radius: 5px;
+                padding: 4px;
+            }
+            .error {
+                background-color: #ff6666;
+            }
+            .success {
+                background-color: #88ff88;
+            }
+    </style>
+    </head>
+    <body>
+        <?php if ($error): ?>
+            <div class = "error box">
+                <?php echo $error ?>
+            </div>
+        <?php else: ?>
+            <div class = "success box">
+                The database and dummy data was created A OK.
+                <?php if ($count): ?>
+                    <?php echo $count ?> new rows were created.
+                <?php endif ?>
+            </div>
+        <?php endif ?>
+    </body>
 </html>
