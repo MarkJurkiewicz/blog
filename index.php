@@ -6,11 +6,11 @@
 </head>
 <body>
 <h1>Blog title</h1>
-<p>This paragraph summarises what the blog is about.</p>
+<p>This paragraph summarizes what the blog is about.</p>
 <?php for ($postId = 1; $postId <= 3; $postId++): ?>
 <h2>Article <?php echo $postId ?></h2>
 <div>dd Mon YYYY</div>
-<p>A paragraph summarising article <?php echo $postId ?>.</p>
+<p>A paragraph summarizing article <?php echo $postId ?>.</p>
 <p>
     <a href="#">Read more...</a>
 </p>
