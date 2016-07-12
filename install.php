@@ -35,3 +35,32 @@ if (!error)
         $error = 'Cannot find SQL file';
     }
 }
+
+//Connect to the new database and try to run the SQL commands
+if (!$error)
+{
+    $pdo = new PDO($dsn);
+    $result = $pdo->exec($sql);
+    if ($result === false)
+    {
+        $error = 'Could not run SQL: ' . print_r($pdo->errorInfo(), true);
+    }
+}
+
+//See how many rows are created
+$count = null;
+if (!$error)
+{
+    $sql = "SELECT COUNT(*) AS c FROM post";
+    $stmt = $pdo->query($sql);
+    if ($stmt)
+    {
+        $count = $stmt->fetchColumn();
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html>
+    <head>Blog Installer</head>
+</html>
