@@ -7,7 +7,7 @@ $dsn = 'sqlite:' . $database;
 $error = '';
 
 // A security measure, to avoid anyone resetting the database if it already exists
-if (is_readabl($database) && filesize($database) > 0)
+if (is_readable($database) && filesize($database) > 0)
 {
     $error = 'Please delete the existing database manually before installing it afresh';
 }
@@ -16,7 +16,7 @@ if (is_readabl($database) && filesize($database) > 0)
 if (!$error)
 {
     $createdOk = @touch(database);
-    if (!createdOk)
+    if (!$createdOk)
     {
         $error = sprintf(
             'Could not create the database, please allow the server to create new files in \'%s\'',
@@ -26,7 +26,7 @@ if (!$error)
 }
 
 // Grab the SQL commands we want to run on the database
-if (!error)
+if (!$error)
 {
     $sql = file_get_contents($root . '/data/init.sql');
 
