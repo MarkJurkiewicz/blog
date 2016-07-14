@@ -30,7 +30,7 @@ if ($stmt === false)
         throw new Exception('There was a problem preparing this query');
 }
 $result = $stmt->execute(
-    array('id' => 1, )
+    array('id' => $postId, )
 );
 if ($result === false)
 {
