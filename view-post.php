@@ -14,7 +14,7 @@ else
 }
 
 // Connection to the database, run a query, handle errors
-$pdo = new PDO();
+$pdo = getPDO();
 $stmt = $pdo->prepare(
     'SELECT
         title, created_at, body
@@ -37,6 +37,10 @@ if ($result === false)
 
 // Access a row
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Carriage returns for paragraph breaks
+$bodyText = htmlEscape($row['body']);
+$paraText = str_ireplace("\n", "</p><p>", $bodyText);
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,7 +61,8 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
         <?php echo $row['created_at'] ?>
     </div>
     <p>
-        <?php echo htmlspecialchars($row['body']) ?>
+        <?php echo htmlEscape($row['body']) ?>
+        <?php echo $paraText ?>
     </p>
 
 </body>

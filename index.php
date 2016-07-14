@@ -6,7 +6,7 @@ $database = $root . '/data/data.sqlite';
 $dsn = 'sqlite:' . $database;
 
 // Connection to the database, run a query, handle errors
-$pdo = new PDO();
+$pdo = getPDO();
 $stmt = $pdo->query(
         'SELECT
             id, title, created_at, body
@@ -34,13 +34,13 @@ if ($stmt === false)
 <?php require 'templates/title.php' ?>
 <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
     <h2>
-        <?php echo htmlspecialchars($row['title']) ?>
+        <?php echo htmlEscape($row['title']) ?>
     </h2>
     <div>
-        <?php echo $row['created_at'] ?>)
+        <?php echo convertSqlDate($row['created_at']) ?>)
     </div>
     <p>
-        <?php echo htmlspecialchars($row['body']) ?>
+        <?php echo htmlEscape($row['body']) ?>
     </p>
     <p>
         <a

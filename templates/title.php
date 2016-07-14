@@ -1,2 +1,4 @@
-<h1>Blog title</h1>
-<p>This paragraph summarises what the blog is about.</p>
+<a href="index.php">
+    <h1>jurkCMS</h1>
+</a>
+<p>The struggle continues...</p>

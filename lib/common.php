@@ -50,3 +50,17 @@ function htmlEscape($html)
 {
     return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
 }
+
+/**
+ * Changes the default date style for easy reading
+ *
+ *@param string $sqlDate
+ *return string
+ */
+function convertSqlDate($sqlDate)
+{
+    /* @var $date DateTime */
+    $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
+
+    return $date->format('d M Y');
+}
