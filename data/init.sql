@@ -55,3 +55,15 @@ This is split into paragraphs.",
         date('now', '-13 days')
     )
 ;
+
+DROP TABLE IF EXISTS comments;
+
+CREATE TABLE comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    post_id INTEGER NOT NULL,
+    created_at VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    website VARCHAR,
+    text VARCHAR NOT NULL
+);
+

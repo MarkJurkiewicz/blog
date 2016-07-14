@@ -49,17 +49,19 @@ if (!$error)
 }
 
 //See how many rows are created
-$count = null;
-if (!$error)
-{
-    $sql = "SELECT COUNT(*) AS c FROM post";
-    $stmt = $pdo->query($sql);
-    if ($stmt)
-    {
-        $count = $stmt->fetchColumn();
+$count = array();
+
+foreach(array('post', 'comments') as $tableName) {
+
+    if (!$error) {
+        $sql = "SELECT COUNT(*) AS c FROM " . $tableName;
+        $stmt = $pdo->query($sql);
+        if ($stmt) {
+            // Store each in count in an associative array
+            $count[$tableName] = $stmt->fetchColumn();
+        }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -88,9 +90,14 @@ if (!$error)
         <?php else: ?>
             <div class = "success box">
                 The database and dummy data was created A OK.
-                <?php if ($count): ?>
-                    <?php echo $count ?> new rows were created.
-                <?php endif ?>
+                <?php foreach (array('post', 'comment') as $tableName): ?>
+                    <?php if (isset($count[$tableName])): ?>
+                        <?php // Prints the count ?>
+                        <?php echo $count[$tableName] ?> new
+                        <?php // prints the name of the thing ?>
+                        <?php echo $tableName ?> ?>s were created.
+                    <?php endif ?>
+                <?php endforeach ?>
             </div>
         <?php endif ?>
     </body>
