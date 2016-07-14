@@ -6,7 +6,7 @@ $database = $root . '/data/data.sqlite';
 $dsn = 'sqlite:' . $database;
 
 // Connection to the database, run a query, handle errors
-$pdo = new PDO($dsn);
+$pdo = new PDO();
 $stmt = $pdo->query(
         'SELECT
             id, title, created_at, body
