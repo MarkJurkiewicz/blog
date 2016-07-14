@@ -67,3 +67,31 @@ CREATE TABLE comments (
     text VARCHAR NOT NULL
 );
 
+INSERT INTO
+    comments
+    (
+        post_id, created_at, name, website, text
+    )
+    VALUES(
+        1,
+        date('now', '-10 days'),
+        'Jimmy',
+        'http://www.quake.com/',
+        "Quake for life"
+    )
+;
+
+INSERT INTO
+    comments
+    (
+        post_id, created_at, name, website, text
+    )
+    VALUES(
+        1,
+        date('now', '-8 days'),
+        'Lloyd',
+        'http://www.theshining.com',
+        "What'll it be?"
+    )
+;
+

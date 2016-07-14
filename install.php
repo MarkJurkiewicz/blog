@@ -95,7 +95,7 @@ foreach(array('post', 'comments') as $tableName) {
                         <?php // Prints the count ?>
                         <?php echo $count[$tableName] ?> new
                         <?php // prints the name of the thing ?>
-                        <?php echo $tableName ?> ?>s were created.
+                        <?php echo $tableName ?>were created.
                     <?php endif ?>
                 <?php endforeach ?>
             </div>
