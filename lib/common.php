@@ -62,5 +62,5 @@ function convertSqlDate($sqlDate)
     /* @var $date DateTime */
     $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
 
-    return $date->format('d M Y');
+    return $date->format('M d Y');
 }

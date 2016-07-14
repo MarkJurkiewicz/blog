@@ -1,10 +1,5 @@
 <?php
-
-// Make pathway to the database, so SQLite/ PDO (PHP data object) can connect
-$root = __DIR__;
-$database = $root . '/data/data.sqlite';
-$dsn = 'sqlite:' . $database;
-
+require_once 'lib/common.php';
 // Connection to the database, run a query, handle errors
 $pdo = getPDO();
 $stmt = $pdo->query(
@@ -37,7 +32,7 @@ if ($stmt === false)
         <?php echo htmlEscape($row['title']) ?>
     </h2>
     <div>
-        <?php echo convertSqlDate($row['created_at']) ?>)
+        <?php echo convertSqlDate($row['created_at']) ?>
     </div>
     <p>
         <?php echo htmlEscape($row['body']) ?>
