@@ -40,7 +40,7 @@ if (!$error)
 //Connect to the new database and try to run the SQL commands
 if (!$error)
 {
-    $pdo = new PDO($dsn);
+    $pdo = new PDO();
     $result = $pdo->exec($sql);
     if ($result === false)
     {
