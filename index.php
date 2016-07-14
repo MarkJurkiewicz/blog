@@ -1,3 +1,28 @@
+<?php
+
+// Make pathway to the database, so SQLite/ PDO (PHP data object) can connect
+$root = __DIR__;
+$database = $root . '/data/data.sqlite';
+$dsn = 'sqlite:' . $database;
+
+// Connection to the database, run a query, handle errors
+$pdo = new PDO($dsn);
+$stmt = $pdo->query(
+        'SELECT
+            title, created_at, body
+        FROM
+            post
+        ORDER BY
+            created_at DESC'
+);
+if ($stmt === false)
+{
+    throw new Exception('There was a problem running this query');
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +32,9 @@
 <body>
 <h1>Blog title</h1>
 <p>This paragraph summarizes what the blog is about.</p>
-<?php for ($postId = 1; $postId <= 3; $postId++): ?>
-<h2>Article <?php echo $postId ?></h2>
-<div>dd Mon YYYY</div>
-<p>A paragraph summarizing article <?php echo $postId ?>.</p>
+
 <p>
     <a href="#">Read more...</a>
 </p>
-<?php endfor ?>
 </body>
 </html>
