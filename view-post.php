@@ -1,4 +1,3 @@
-//View blog posts
 <?php
 // Make pathway to the database, so SQLite/PDO can connect
 $root = __DIR__;
