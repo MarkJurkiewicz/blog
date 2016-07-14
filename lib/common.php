@@ -54,7 +54,7 @@ function htmlEscape($html)
 /**
  * Changes the default date style for easy reading
  *
- *@param string $sqlDate
+ *@param  $sqlDate
  *return string
  */
 function convertSqlDate($sqlDate)
@@ -63,4 +63,25 @@ function convertSqlDate($sqlDate)
     $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
 
     return $date->format('M d Y');
+}
+
+/**
+ * Returns the number of comments for the specified post
+ *
+ * @param integer $postId
+ * @return integer
+ */
+function countCommentsForPost($postId)
+{
+    $pdo = getPDO();
+    $sql = "
+        SELECT
+            COUNT(*) C
+        FROM
+           comments
+        WHERE
+           post_id = :post_id
+    ";
+    $stmt = $pdo->prepare($sql);
+
 }
