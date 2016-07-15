@@ -60,9 +60,26 @@ function htmlEscape($html)
 function convertSqlDate($sqlDate)
 {
     /* @var $date DateTime */
-    $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
+    $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
 
     return $date->format('M d Y');
+}
+
+/**
+ * Accounts for if the user is requesting a blog post which does not exist
+ * @param $script
+ */
+function redirectAndExit($script)
+{
+    //Get the domain-relative URL and filepath
+    $relativeUrl = $_SERVER['PHP_SELF'];
+    $urlFolder = substr(relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
+
+    // Redirect to the full URL
+    $host = $_SERVER['HTTP_HOST'];
+    $fullUrl = 'http://' . $host . $urlFolder . $script;
+    header('Location: ' . $fullUrl);
+    exit();
 }
 
 /**
@@ -103,7 +120,7 @@ function getCommentsForPost($postId)
         SELECT
             id, name, text, created_at, website
         FROM
-            comment
+            comments
         WHERE
             post_id = :post_id
     ";

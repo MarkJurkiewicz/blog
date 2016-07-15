@@ -15,6 +15,7 @@ if ($stmt === false)
     throw new Exception('There was a problem running this query');
 }
 
+$notFound = isset($_GET['not_found']);
 ?>
 
 
@@ -27,7 +28,13 @@ if ($stmt === false)
 <body>
 
 <?php require 'templates/title.php' ?>
-<?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+
+    <?php if ($notFound): ?>
+    <div style="border: 1px solid #ff6666; padding: 6px;">
+        Error: cannot find the requested blog post
+    </div>
+    <?php endif ?>
+    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
     <h2>
         <?php echo htmlEscape($row['title']) ?>
     </h2>

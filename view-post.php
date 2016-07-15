@@ -1,6 +1,7 @@
 <?php
 // Make pathway to the database, so SQLite/PDO can connect
 require_once 'lib/common.php';
+require_once 'lib/view-post.php';
 
 //Get the post ID
 if (isset($_GET['post_id']))
@@ -15,6 +16,12 @@ else
 
 // Connection to the database, run a query, handle errors
 $pdo = getPDO();
+$row = getPostRow($pdo, $postId);
+// if the row does not exist
+if (!$row)
+{
+    redirectAndExit('index.php?not-found=1');
+}
 $stmt = $pdo->prepare(
     'SELECT
         title, created_at, body
