@@ -10,6 +10,7 @@ session_start();
 if ($_POST)
 {
     // Here's the install
+    $pdo = getPDO();
     list($_SESSION['count'], $_SESSION['error']) = installBlog();
 
     // ... and here we redirect from POST to GET

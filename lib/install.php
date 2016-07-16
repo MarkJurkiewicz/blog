@@ -1,8 +1,8 @@
 <?php
 
-function installBlog()
+function installBlog(PDO $pdo)
 {
-// Get the PDO DSN string
+// Get the important project path dirs
     $root = getRootPath();
     $database = getDatabasePath();
 
