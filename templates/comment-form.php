@@ -1,3 +1,10 @@
+<?php
+/**
+ * @var @errors string
+ * @var @commentData array
+ */
+?>
+
 // Form to add a comment on the blog
 <hr>
 
@@ -23,6 +30,7 @@
             type="text"
             id="comment-name"
             name="comment-name"
+            value="<?php echo htmlEscape($commentData['name']) ?>"
         >
     </p>
     <p>
@@ -33,7 +41,8 @@
             type="text"
             id="comment-website"
             name="comment-website"
-            >
+            value="<?php echo htmlEscape($commentData['website']) ?>"
+        >
     </p>
     <p>
         <label for="comment-text">
@@ -44,7 +53,7 @@
             name="comment-text"
             row="8"
             cols="70"
-        ></textarea>
+        ><?php echo htmlEscape($commentData['text']) ?></textarea>
     </p>
 
     <input type="submit" value="Submit comment">
