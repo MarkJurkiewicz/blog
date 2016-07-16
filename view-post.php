@@ -37,7 +37,14 @@ if ($_POST) {
         redirectAndExit('view-post.php?post_id=' . $postId);
     }
 }
-
+else
+{
+    $commentData = array(
+        'name' => '',
+        'website' => '',
+        'text' => '',
+    );
+}
 $stmt = $pdo->prepare(
     'SELECT
         title, created_at, body
@@ -84,7 +91,7 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
         <?php echo convertSqlDate($row['created_at']) ?>
     </div>
     <p>
-        <?php echo $paraText ?>
+        <?php echo convertNewlinesToParagraphs($row['body']) ?>
     </p>
 
     <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
@@ -99,7 +106,7 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
                 <?php echo convertSqlDate($comment['created_at']) ?>
             </div>
             <div class="comment-body">
-                <?php echo htmlEscape($comment['text']) ?>
+                <?php echo convertNewlinesToParagraphs($comment['text']) ?>
             </div>
         </div>
     <?php endforeach ?>
