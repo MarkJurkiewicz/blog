@@ -104,7 +104,7 @@ function createUser(PDO $pdo, $username, $length = 10)
     }
 
     // Hash password logic/encryption
-    if (!error)
+    if (!$error)
     {
         // Create a hash of the password, to make a stolen user database obsolete (almost)
         $hash = password_hash($password, PASSWORD_DEFAULT);

@@ -1,14 +1,8 @@
-<?php
-/**
- * @var @errors string
- * @var @commentData array
- */
-?>
 
-// Form to add a comment on the blog
+<?php // Form to add a comment on the blog ?>
 <hr>
 
-//Error reporting in a bullet-point list
+<?php //Error reporting in a bullet-point list ?>
 <?php if ($errors): ?>
     <div style="border: 1px solid #ff6666; padding: 6px;">
         <ul>

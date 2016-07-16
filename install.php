@@ -3,7 +3,7 @@ require_once 'lib/common.php';
 require_once 'lib/install.php';
 
 
-// We store stuff in the session, to survive the redirect to self
+// Store stuff in the session, to survive the redirect to self
 session_start();
 
 // Only run the installer when we're responding to the form
@@ -11,7 +11,7 @@ if ($_POST)
 {
     // Here's the install
     $pdo = getPDO();
-    list($_SESSION['count'], $_SESSION['error']) = installBlog($pdo);
+    list($rowCounts, $error) = installBlog($pdo);
 
     $password = '';
     if (!$error)
