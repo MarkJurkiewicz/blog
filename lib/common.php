@@ -65,7 +65,7 @@ function redirectAndExit($script)
     $relativeUrl = $_SERVER['PHP_SELF'];
     $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
 
-    // Redirect to the full URL (http://myhost/blog/script.php)
+    // Redirect to the full URL
     $host = $_SERVER['HTTP_HOST'];
     $fullUrl = 'http://' . $host . $urlFolder . $script;
     header('Location: ' . $fullUrl);
