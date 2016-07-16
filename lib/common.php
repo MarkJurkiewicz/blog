@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get root path of the project
+ * Gets the root path of the project
  *
  * @return string
  */
@@ -11,7 +11,7 @@ function getRootPath()
 }
 
 /**
- *  Retrieves the full path for the database file
+ * Gets the full path for the database file
  *
  * @return string
  */
@@ -21,7 +21,7 @@ function getDatabasePath()
 }
 
 /**
- * Retrieves the DSN for the SQLite connection
+ * Gets the DSN for the SQLite connection
  *
  * @return string
  */
@@ -31,7 +31,7 @@ function getDsn()
 }
 
 /**
- * Retrives the PDO (PHP Data Object) for database access
+ * Gets the PDO object for database acccess
  *
  * @return \PDO
  */
@@ -51,31 +51,21 @@ function htmlEscape($html)
     return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
 }
 
-/**
- * Changes the default date style for easy reading
- *
- *@param  $sqlDate
- *return string
- */
 function convertSqlDate($sqlDate)
 {
     /* @var $date DateTime */
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
 
-    return $date->format('M d Y');
+    return $date->format('d M Y, H:i');
 }
 
-/**
- * Accounts for if the user is requesting a blog post which does not exist
- * @param $script
- */
 function redirectAndExit($script)
 {
-    //Get the domain-relative URL and filepath
+    // Get the domain-relative URL
     $relativeUrl = $_SERVER['PHP_SELF'];
-    $urlFolder = substr(relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
+    $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
 
-    // Redirect to the full URL
+    // Redirect to the full URL (http://myhost/blog/script.php)
     $host = $_SERVER['HTTP_HOST'];
     $fullUrl = 'http://' . $host . $urlFolder . $script;
     header('Location: ' . $fullUrl);
@@ -93,11 +83,11 @@ function countCommentsForPost($postId)
     $pdo = getPDO();
     $sql = "
         SELECT
-            COUNT(*) C
+            COUNT(*) c
         FROM
-           comments
+            comments
         WHERE
-           post_id = :post_id
+            post_id = :post_id
     ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(
@@ -111,7 +101,6 @@ function countCommentsForPost($postId)
  * Returns all the comments for the specified post
  *
  * @param integer $postId
- * @return associative array
  */
 function getCommentsForPost($postId)
 {
@@ -128,5 +117,6 @@ function getCommentsForPost($postId)
     $stmt->execute(
         array('post_id' => $postId, )
     );
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

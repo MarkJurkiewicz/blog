@@ -74,7 +74,8 @@ function installBlog()
 session_start();
 
 // Only run the installer when we're responding to the form
-if ($_POST) {
+if ($_POST)
+{
     // Here's the install
     list($_SESSION['count'], $_SESSION['error']) = installBlog();
 
@@ -124,7 +125,7 @@ if ($_SESSION)
         </div>
     <?php else: ?>
         <div class="success box">
-            The database and dummy data was created OK.
+            The database and demo data was created OK.
 
             <?php foreach (array('post', 'comments') as $tableName): ?>
                 <?php if (isset($count[$tableName])): ?>
@@ -136,6 +137,11 @@ if ($_SESSION)
                 <?php endif ?>
             <?php endforeach ?>
         </div>
+
+        <p>
+            <a href="index.php">View the blog</a>,
+            or <a href="install.php">install again</a>.
+        </p>
     <?php endif ?>
 
 <?php else: ?>

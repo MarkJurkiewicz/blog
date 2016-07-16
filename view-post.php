@@ -74,7 +74,6 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
     <h3><?php echo countCommentsForPost($postId) ?> comments</h3>
 
     <?php foreach (getCommentsForPost($postId) as $comment): ?>
-        <?php // For now, we'll use a horizontal rule-off to split it up a bit ?>
         <hr>
         <div class="comment">
             <div class="comment-meta">
