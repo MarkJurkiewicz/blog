@@ -11,14 +11,15 @@ if (version_compare(PHP_VERSION, '5.3.7') < 0)
 
 session_start();
 
-//Handle the form posting
+
+// Handle the form posting
 $username = '';
 if ($_POST)
 {
     // Init the database
     $pdo = getPDO();
 
-    // Redirect only if the password is correct
+    // We redirect only if the password is correct
     $username = $_POST['username'];
     $ok = tryLogin($pdo, $username, $_POST['password']);
     if ($ok)
@@ -28,7 +29,6 @@ if ($_POST)
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>

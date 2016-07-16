@@ -157,7 +157,7 @@ function tryLogin(PDO $pdo, $username, $password)
             username = :username
     ";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(
+    $stmt->exec(
         array('username' => $username, )
     );
 
