@@ -22,6 +22,22 @@ if (!$row)
 {
     redirectAndExit('index.php?not-found=1');
 }
+
+$errors = null;
+if ($_POST) {
+    $commentData = array(
+        'name' => $_POST['comment-name'],
+        'website' => $_POST['comment-name'],
+        'text' => $_POST['comment-text'],
+    );
+    $errors = addCommentToPost($pdo, $postId, $commentData);
+
+    //If no errors present, redirect to self and redisplay
+    if (!errors) {
+        redirectAndExit('view-post.php?post_id=' . $postId);
+    }
+}
+
 $stmt = $pdo->prepare(
     'SELECT
         title, created_at, body
@@ -88,5 +104,6 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
         </div>
     <?php endforeach ?>
 
+    <?php require 'templates/comment-form.php' ?>
 </body>
 </html>
