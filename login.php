@@ -35,15 +35,16 @@ if ($_POST)
         <title>
             A blog application | Login
         </title>
+        <?php require 'templates/head.php' ?>
     </head>
     <body>
-        <?php require 'templates/title.php' ?>'
+        <?php require 'templates/title.php' ?>
 
         <p>Login here:</p>
 
         <?php // error checking in case we have a username, something is wrong ?>
         <?php if ($username): ?>
-            <div style="border: 1px solid #ff6666; padding: 6px;">
+            <div class="error box">
                 The username or password is incorrect, try again
             </div>
         <?php endif ?>

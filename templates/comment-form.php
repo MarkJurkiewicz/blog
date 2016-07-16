@@ -1,10 +1,9 @@
 
 <?php // Form to add a comment on the blog ?>
-<hr>
 
 <?php //Error reporting in a bullet-point list ?>
 <?php if ($errors): ?>
-    <div style="border: 1px solid #ff6666; padding: 6px;">
+    <div class="error box content-margin">
         <ul>
             <?php foreach ($errors as $bug): ?>
                 <li><?php echo $bug ?></li>
@@ -15,8 +14,8 @@
 
 <h3>Add your comment</h3>
 
-<form method="post">
-    <p>
+<form method="post" class="comment-form">
+    <div>
         <label for="comment-name">
             Name:
         </label>
@@ -26,8 +25,8 @@
             name="comment-name"
             value="<?php echo htmlEscape($commentData['name']) ?>"
         >
-    </p>
-    <p>
+    </div>
+    <div>
         <label for="comment-website">
                Website:
         </label>
@@ -37,8 +36,8 @@
             name="comment-website"
             value="<?php echo htmlEscape($commentData['website']) ?>"
         >
-    </p>
-    <p>
+    </div>
+    <div>
         <label for="comment-text">
             Comment:
         </label>
@@ -48,7 +47,7 @@
             row="8"
             cols="70"
         ><?php echo htmlEscape($commentData['text']) ?></textarea>
-    </p>
+    </div>
 
     <input type="submit" value="Submit comment">
 </form>
