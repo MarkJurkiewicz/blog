@@ -1,3 +1,34 @@
+<?php
+require_once 'lib/common.php';
+require_once 'vendor/password_compat/lib/password.php';
+// Tests for a minimum version of PHP, because earlier versions have bugs that affect security
+if (version_compare(PHP_VERSION, '5.3.7') < 0)
+{
+    throw new Exception(
+        'This system needs PHP 5.3.7 or later'
+    );
+}
+
+session_start();
+
+//Handle the form posting
+$username = '';
+if ($_POST)
+{
+    // Init the database
+    $pdo = getPDO();
+
+    // Redirect only if the password is correct
+    $username = $_POST['username'];
+    $ok = tryLogin($pdo, $username, $_POST['password']);
+    if ($ok)
+    {
+        login($username);
+        redirectAndExit('index.php');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,9 +41,16 @@
 
         <p>Login here:</p>
 
+        <?php // error checking in case we have a username, something is wrong ?>
+        <?php if ($username): ?>
+            <div style="border: 1px solid #ff6666; padding: 6px;">
+                The username or password is incorrect, try again
+            </div>
+        <?php endif ?>
+
         <form method="post">
             <p>Username:
-            <input type="text" name="username">
+            <input type="text" name="username" value="<?php echo htmlEscape($username) ?>">
             </p>
             <p>Password
             <input type="password" name="password">
