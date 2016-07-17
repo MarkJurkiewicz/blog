@@ -51,7 +51,7 @@ function addCommentToPost(PDO $pdo, $postId, array $commentData)
     if (empty($commentData['name'])) {
         $errors['name'] = 'A name is required';
     }
-    if (empty($commendData['text'])) {
+    if (empty($commentData['text'])) {
         $errors['text'] = 'A comment is required';
     }
 

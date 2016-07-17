@@ -1,8 +1,8 @@
 /**
-  * Database creation script (SQL)
+ * Database creation script
  */
 
-/* Foreign key constrainsts need to be explicitly enabled in SQLite */
+/* Foreign key constraints need to be explicitly enabled in SQLite */
 PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS user;
@@ -22,7 +22,7 @@ INSERT INTO
     (
         username, password, created_at, is_enabled
     )
-    VALUES
+VALUES
     (
         "admin", "unhashed-password", datetime('now', '-3 months'), 0
     )
@@ -36,7 +36,8 @@ CREATE TABLE post (
     body VARCHAR NOT NULL,
     user_id INTEGER NOT NULL,
     created_at VARCHAR NOT NULL,
-    updated_at VARCHAR
+    updated_at VARCHAR,
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 INSERT INTO
@@ -44,14 +45,14 @@ INSERT INTO
     (
         title, body, user_id, created_at
     )
-    VALUES(
-        "Here's our first post",
-        "This is the body of the first post.
+VALUES(
+    "Here's our first post",
+    "This is the body of the first post.
 
 It is split into paragraphs.",
-        1,
-        datetime('now', '-2 months', '-45 minutes', '+10 seconds')
-    )
+    1,
+    datetime('now', '-2 months', '-45 minutes', '+10 seconds')
+)
 ;
 
 INSERT INTO
@@ -59,13 +60,13 @@ INSERT INTO
     (
         title, body, user_id, created_at
     )
-    VALUES(
-        "Now for a second article",
-        "This is the body of the second post.
+VALUES(
+    "Now for a second article",
+    "This is the body of the second post.
 This is another paragraph.",
-        1,
-        datetime('now', '-40 days', '+815 minutes', '+37 seconds')
-    )
+    1,
+    datetime('now', '-40 days', '+815 minutes', '+37 seconds')
+)
 ;
 
 INSERT INTO
@@ -73,16 +74,16 @@ INSERT INTO
     (
         title, body, user_id, created_at
     )
-    VALUES(
-        "Here's a third post",
-        "This is the body of the third post.
+VALUES(
+    "Here's a third post",
+    "This is the body of the third post.
 This is split into paragraphs.",
-        1,
-        datetime('now', '-13 days', '+198 minutes', '+51 seconds')
-    )
+    1,
+    datetime('now', '-13 days', '+198 minutes', '+51 seconds')
+)
 ;
 
-DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS comment;
 
 CREATE TABLE comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -90,7 +91,7 @@ CREATE TABLE comments (
     created_at VARCHAR NOT NULL,
     name VARCHAR NOT NULL,
     website VARCHAR,
-    text VARCHAR NOT NULL
+    text VARCHAR NOT NULL,
     FOREIGN KEY (post_id) REFERENCES post(id)
 );
 
@@ -99,13 +100,13 @@ INSERT INTO
     (
         post_id, created_at, name, website, text
     )
-    VALUES(
-        1,
-        datetime('now', '-10 days', '+231 minutes', '+7 seconds'),
-        'Jimmy',
-        'http://www.quake.com/',
-        "Quake for life"
-    )
+VALUES(
+    1,
+    datetime('now', '-10 days', '+231 minutes', '+7 seconds'),
+    'Jimmy',
+    'http://example.com/',
+    "This is Jimmy's contribution"
+)
 ;
 
 INSERT INTO
@@ -113,11 +114,11 @@ INSERT INTO
     (
         post_id, created_at, name, website, text
     )
-    VALUES(
-        1,
-        datetime('now', '-8 days', '+549 minutes', '+32 seconds'),
-        'Lloyd',
-        'http://www.theshining.com',
-        "What'll it be?"
-    )
+VALUES(
+    1,
+    datetime('now', '-8 days', '+549 minutes', '+32 seconds'),
+    'Jonny',
+    'http://anotherexample.com/',
+    "This is a comment from Jonny"
+)
 ;

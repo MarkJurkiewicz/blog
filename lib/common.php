@@ -87,11 +87,12 @@ function convertNewlinesToParagraphs($text)
 
 function redirectAndExit($script)
 {
-    // Get the domain-relative URL
+    // Get the domain-relative URL) and work
+    // out the folder (e.g. /blog/ or /).
     $relativeUrl = $_SERVER['PHP_SELF'];
     $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
 
-    // Redirect to the full URL
+    // Redirect to the full URL (http://myhost/blog/script.php)
     $host = $_SERVER['HTTP_HOST'];
     $fullUrl = 'http://' . $host . $urlFolder . $script;
     header('Location: ' . $fullUrl);
@@ -157,11 +158,11 @@ function tryLogin(PDO $pdo, $username, $password)
             username = :username
     ";
     $stmt = $pdo->prepare($sql);
-    $stmt->exec(
+    $stmt->execute(
         array('username' => $username, )
     );
 
-    //Get the hash from this row, and use the third-party hashing library to check it
+    // Get the hash from this row, and use the third-party hashing library to check it
     $hash = $stmt->fetchColumn();
     $success = password_verify($password, $hash);
 

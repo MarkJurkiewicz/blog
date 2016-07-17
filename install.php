@@ -2,8 +2,7 @@
 require_once 'lib/common.php';
 require_once 'lib/install.php';
 
-
-// Store stuff in the session, to survive the redirect to self
+// We store stuff in the session, to survive the redirect to self
 session_start();
 
 // Only run the installer when we're responding to the form
@@ -65,8 +64,9 @@ if (isset($_SESSION['try-install']))
     <?php else: ?>
         <div class="success box">
             The database and demo data was created OK.
+
             <?php // Report the counts for each table ?>
-            <?php foreach (array('post', 'comments') as $tableName): ?>
+            <?php foreach (array('post', 'comment') as $tableName): ?>
                 <?php if (isset($count[$tableName])): ?>
                     <?php // Prints the count ?>
                     <?php echo $count[$tableName] ?> new
@@ -75,9 +75,11 @@ if (isset($_SESSION['try-install']))
                     were created.
                 <?php endif ?>
             <?php endforeach ?>
-            <?php //Report the new password ?>
+
+            <?php // Report the new password ?>
             The new '<?php echo htmlEscape($username) ?>' password is
             <span class="install-password"><?php echo htmlEscape($password) ?></span>
+            (copy it to clipboard if you wish).
         </div>
 
         <p>
