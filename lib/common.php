@@ -194,18 +194,14 @@ function logout()
 
 function getAuthUser()
 {
-    if ($_SESSION['logged_in_username'] === true)
-{
-        return isLoggedIn();
-} else {
+    if (isLoggedIn()) {
+        return $_SESSION['logged_in_username'];
+    } else {
         return null;
     }
 }
 
-//if (isLoggedIn()) {
-//    return $_SESSION['logged_in_username'];
-//} else {
-//    return null;
+
 //} //ternary operator if
 //}
 
