@@ -1,5 +1,7 @@
 <?php
 require_once 'lib/common.php';
+require_once 'lib/edit-post.php';
+require_once 'lib/view-post.php';
 
 session_start();
 //Blocks non-auth users from seeing this screen
@@ -7,11 +9,19 @@ if (!isLoggedIn())
 {
     redirectAndExit('index.php');
 }
+
+//Empty defaults
+$title = $body = '';
+
+//Initialize database and get handle
+$pdo = getPDO();
+
+
 // Post operation
 $errors = array();
 if ($_POST)
 {
-    // Validate
+    // simple Form Validation checks
     $title = $_POST['post-title'];
     if (!$title)
     {
@@ -28,7 +38,7 @@ if ($_POST)
         $pdo = getPDO();
         $userId = getAuthUserId($pdo);
         $postId = addPost(
-            getPDO(),
+            $pdo,
             $title,
             $body,
             $userId
@@ -45,7 +55,15 @@ if ($_POST)
         redirectAndExit('edit-post.php$post_id=' . $postId);
     }
 }
-
+elseif (isset($_GET['post_id']))
+{
+    $post = getPostRow($pdo, $_GET['post_id']);
+    if ($post)
+    {
+        $title = $post['title'];
+        $body = $post['body'];
+    }
+}
 ?>
 
 
@@ -74,6 +92,7 @@ if ($_POST)
             id="post-title"
             name="post-title"
             type="text"
+            value="<?php echo htmlEscape($title) ?>"
         />
     </div>
     <div>
@@ -83,7 +102,7 @@ if ($_POST)
                     name="post-body"
                     rows="12"
                     cols="70"
-                ></textarea>
+                ><?php echo htmlEscape($body) ?></textarea>
     </div>
     <div>
         <input
