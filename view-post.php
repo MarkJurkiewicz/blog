@@ -96,23 +96,7 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
         <?php // This is already escaped, so doesn't need further escaping ?>
         <?php echo convertNewlinesToParagraphs($row['body']) ?>
     </div>
-    <div class="comment-list">
-        <h3><?php echo countCommentsForPost($pdo, $postId) ?> comments</h3>
-        <?php foreach (getCommentsForPost($pdo, $postId) as $comment): ?>
-            <div class="comment">
-                <div class="comment-meta">
-                    Comment from
-                    <strong><?php echo htmlEscape($comment['name']) ?></strong>
-                    on
-                    <?php echo convertSqlDate($comment['created_at']) ?>
-                </div>
-                <div class="comment-body">
-                    <?php // This is already escaped ?>
-                    <?php echo convertNewlinesToParagraphs($comment['text']) ?>
-                </div>
-        </div>
-    <?php endforeach ?>
-
+    <?php require 'templates/list-comments.php' ?>
     <?php require 'templates/comment-form.php' ?>
 </body>
 </html>
