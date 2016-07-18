@@ -1,6 +1,13 @@
 <?php
 require_once 'lib/common.php';
 session_start();
+
+// Don't let non-auth users see this screen
+if (!isLoggedIn())
+{
+    redirectAndExit('index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
