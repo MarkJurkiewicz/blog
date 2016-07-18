@@ -72,7 +72,6 @@ function getSqlDateForNow()
     return date('Y-m-d H:i:s');
 }
 
-
 /**
  * Gets a list of posts in reverse order
  *

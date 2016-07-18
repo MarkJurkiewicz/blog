@@ -54,7 +54,7 @@ $posts = getAllPosts($pdo);
 
             </td>
             <td>
-                <?php echo convertSqlDate(['created_at']) ?>
+                <?php echo convertSqlDate($post['created_at']) ?>
             </td>
             <td>
                 <a href="edit-post.php?post_id=<?php echo $post['id']?>">Edit</a>
