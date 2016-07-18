@@ -26,21 +26,34 @@ if (!$row)
 }
 
 $errors = null;
-if ($_POST) {
-    $commentData = array(
-        'name' => $_POST['comment-name'],
-        'website' => $_POST['comment-name'],
-        'text' => $_POST['comment-text'],
-    );
-    $errors = addCommentToPost($pdo, $postId, $commentData);
-
-    //If no errors present, redirect to self and redisplay
-    if (!$errors) {
-        redirectAndExit('view-post.php?post_id=' . $postId);
-    }
-}
-else
+if ($_POST)
 {
+    switch ($_GET['action'])
+    {
+        case 'add-comment':
+            $commentData = array(
+                'name' => $_POST['comment-name'],
+                'website' => $_POST['comment-website'],
+                'text' => $_POST['comment-text'],
+            );
+            $errors = handleAddComment($pdo, $postId, $commentData);
+            break;
+        case 'delete-comment':
+            // Don't do anything if the user is not authorized
+            if (isLoggedIn())
+            {
+                $deleteResponse = $_POST['delete-comment'];
+                $keys = array_keys($deleteResponse);
+                $deleteCommentId = $keys[0];
+                deleteComment($pdo, $postId, $deleteCommentId);
+                redirectAndExit('view-post.php?post_id=' . $postId);
+            }
+            break;
+    }
+
+
+} else {
+
     $commentData = array(
         'name' => '',
         'website' => '',
@@ -79,7 +92,7 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
     <head>
         <title>
             A blog application |
-            <?php echo htmlspecialchars($row['title']) ?>
+            <?php echo htmlEscape($row['title']) ?>
         </title>
         <?php require 'templates/head.php' ?>
     </head>
@@ -97,6 +110,7 @@ $paraText = str_ireplace("\n", "</p><p>", $bodyText);
         <?php echo convertNewlinesToParagraphs($row['body']) ?>
     </div>
     <?php require 'templates/list-comments.php' ?>
+    <?php // We use $commentData in this HTML fragment ?>
     <?php require 'templates/comment-form.php' ?>
 </body>
 </html>
