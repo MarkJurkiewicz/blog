@@ -10,7 +10,7 @@ if (version_compare(PHP_VERSION, '5.3.7') < 0)
 }
 
 session_start();
-// If we're already logged in, go back home
+// If user already logged in, return home
 if (isLoggedIn())
 {
     redirectAndExit('index.php');
