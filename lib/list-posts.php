@@ -10,21 +10,36 @@
  */
 function deletePost(PDO $pdo, $postId)
 {
-    $sql = "
-        DELETE FROM
+    $sqls = array(
+        //Delete comments first, to remove foreign key objection
+        "DELETE FROM
+            comments
+        WHERE
+            post_id = :id",
+        // Able to delete post now
+        "DELETE FROM
             post
         WHERE
-            id = :id
-        ";
-    $stmt = $pdo->prepare($sql);
-    if ($stmt === false)
+            id = :id",
+        );
+
+    foreach ($sqls as $sql)
     {
-        throw new Exception('There was a problem preparing this query');
+        $stmt = $pdo->prepare($sql);
+        if ($stmt === false)
+        {
+            throw new Exception('There was a problem preparing this query');
+        }
+
+        $result = $stmt->execute(
+            array('id' => $postId,)
+        );
+
+        // Stop if something went wrong
+        if ($result === false)
+        {
+            break;
+        }
     }
-
-    $result = $stmt->execute(
-        array('id' => $postId, )
-    );
-
     return $result !== false;
 }
