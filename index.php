@@ -4,9 +4,10 @@ require_once 'lib/common.php';
 session_start();
 // Connection to the database, run a query, handle errors
 $pdo = getPDO();
+$posts = getAllPosts($pdo);
 
 $notFound = isset($_GET['not_found']);
-$posts = getAllPosts($pdo);
+
 ?>
 
 

@@ -13,15 +13,15 @@ function deletePost(PDO $pdo, $postId)
     $sqls = array(
         //Delete comments first, to remove foreign key objection
         "DELETE FROM
-            comments
+            comment
         WHERE
             post_id = :id",
-        // Able to delete post now
+        // Now we can delete the post
         "DELETE FROM
             post
         WHERE
             id = :id",
-        );
+    );
 
     foreach ($sqls as $sql)
     {
