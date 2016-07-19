@@ -16,7 +16,7 @@
         <div class="comment">
             <div class="comment-meta">
                 Comment from
-                <?php echo htmlEscape($comment['name']) ?>
+                <strong><?php echo htmlEscape($comment['name']) ?></strong>
                 on
                 <?php echo convertSqlDate($comment['created_at']) ?>
                 <?php if (isLoggedIn()): ?>
