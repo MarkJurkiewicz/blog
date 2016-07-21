@@ -83,7 +83,7 @@ This is split into paragraphs.",
 )
 ;
 
-DROP TABLE IF EXISTS comment;
+DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
